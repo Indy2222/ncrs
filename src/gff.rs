@@ -31,13 +31,13 @@ fn parse_gff_line(line: String) -> Result<Annotation> {
     let mut tokens: Vec<String> = line.split('\t').take(9).map(String::from).collect();
 
     let num_columns = tokens.len();
-    if num_columns != GFF_NUM_COLUMNS {
-        return Err(anyhow!(
-            "Not enough tab separated tokens. Expected {} got {}.",
-            GFF_NUM_COLUMNS,
-            num_columns
-        ));
-    }
+
+    ensure!(
+        num_columns == GFF_NUM_COLUMNS,
+        "Not enough tab separated tokens. Expected {} got {}.",
+        GFF_NUM_COLUMNS,
+        num_columns
+    );
 
     let attributes = tokens.pop().unwrap();
     let phase = tokens.pop().unwrap();
@@ -61,10 +61,7 @@ fn parse_gff_line(line: String) -> Result<Annotation> {
         "+" => Strand::Positive,
         "-" => Strand::Negative,
         unrecognized => {
-            return Err(anyhow!(
-                "Invalid strand, only +, - are valid. Got: {}",
-                unrecognized
-            ));
+            bail!("Invalid strand, only +, - are valid. Got: {}", unrecognized);
         }
     };
 
@@ -89,22 +86,21 @@ fn parse_gff_line(line: String) -> Result<Annotation> {
         )
     })?;
 
-    if start == 0 {
-        return Err(anyhow!(
-            "Feature start position is 0 but must be bigger or equal to 1."
-        ));
-    }
+    ensure!(
+        start > 0,
+        "Feature start position is 0 but must be bigger or equal to 1."
+    );
+
     // GFF start is 1-based inclusive and we want 0-based inclusive, therefore
     // the subtraction.
     let start = start - 1;
 
-    if start >= end {
-        return Err(anyhow!(
-            "Feature start index is greater or equal to end index. {} >= {}",
-            start,
-            end
-        ));
-    }
+    ensure!(
+        start < end,
+        "Feature start index is greater or equal to end index. {} >= {}",
+        start,
+        end
+    );
 
     let feature = match feature.as_str() {
         "start_codon" => Feature::StartCodon,
@@ -112,7 +108,7 @@ fn parse_gff_line(line: String) -> Result<Annotation> {
         "CDS" => Feature::CDS,
         "exon" => Feature::Exon,
         unrecognized => {
-            return Err(anyhow!("Unrecognized feature: {}", unrecognized));
+            bail!("Unrecognized feature: {}", unrecognized);
         }
     };
 

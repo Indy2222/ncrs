@@ -78,9 +78,7 @@ pub fn load_fasta(path: &Path) -> Result<Vec<Scaffold>> {
         } else {
             match builder {
                 Some(ref mut b) => b.extend_from_str(&line)?,
-                None => {
-                    return Err(anyhow!("Ivalid FASTA file {}.", path.display()));
-                }
+                None => bail!("Ivalid FASTA file {}.", path.display()),
             }
         }
 
@@ -89,7 +87,7 @@ pub fn load_fasta(path: &Path) -> Result<Vec<Scaffold>> {
 
     match builder {
         Some(builder) => scaffolds.push(builder.build()),
-        None => return Err(anyhow!("Empty FASTA file {}.", path.display())),
+        None => bail!("Empty FASTA file {}.", path.display()),
     }
 
     Ok(scaffolds)
