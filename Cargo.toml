@@ -3,6 +3,10 @@ name = "ncrs"
 version = "0.1.0"
 authors = ["Martin Indra"]
 edition = "2018"
+description = "A lightweight Rust library for loading and storing nucleic acid sequences (DNA or RNA) and their annotations with minimum dependences."
+repository = "https://github.com/Indy2222/ncrs"
+keywords = ["DNA", "RNA", "bio", "GFF"]
+categories = ["filesystem", "parser-implementations", "science"]
 
 [dependencies]
 anyhow = "1.0"
