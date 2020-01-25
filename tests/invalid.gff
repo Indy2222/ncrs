@@ -1,0 +1,4 @@
+scaffold_1	JGI	exon	774	1123	.	+	.	name "fgenesh1_kg.1_#_1_#_Locus4417v1rpkm26.65"; transcriptId 416145
+scaffold_2	JGI	XXX	1088	1123	.	+	0	name "fgenesh1_kg.1_#_1_#_Locus4417v1rpkm26.65"; proteinId 416053; exonNumber 1
+scaffold_3	JGI	start_codon	1088	1090	.	+	0	name "fgenesh1_kg.1_#_1_#_Locus4417v1rpkm26.65"
+scaffold_4	JGI	stop_codon	2184	2186	.	+	0	name "fgenesh1_kg.1_#_1_#_Locus4417v1rpkm26.65"
