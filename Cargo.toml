@@ -7,6 +7,7 @@ description = "A lightweight Rust library for loading and storing nucleic acid s
 repository = "https://github.com/Indy2222/ncrs"
 keywords = ["DNA", "RNA", "bio", "GFF"]
 categories = ["filesystem", "parser-implementations", "science"]
+license = "GPL-3.0-or-later"
 
 [dependencies]
 anyhow = "1.0"
